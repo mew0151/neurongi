@@ -1,0 +1,13 @@
+@use "../variables" as *;
+
+.item-folder {
+    position: fixed;
+    top: 52px;
+    left: 0;
+    right: 0;
+    margin: 0 20px;
+    padding: 4px;
+    background-color: $gray-200;
+    border-radius: 12px;
+    display: flex;
+}
