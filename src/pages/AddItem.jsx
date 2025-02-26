@@ -83,6 +83,8 @@ const AddItem = () => {
     const updateDayGap = () => {
         const fullDate = new Date(datepickerYear, datepickerMonth, 0).getDate();
         const days = Array.from({ length: fullDate }, (_, index) => index + 1);
+
+        // 변경 날짜가 기존보다 적을 때 처리
         if (fullDate < dayArr.length) {
             setTranslateY((prev) => {
                 const updatedArr = [...prev];
@@ -201,9 +203,14 @@ const AddItem = () => {
         setDatepickerMonth(monthArr[(120 - translateY[1]) / 40]);
         setDatepickerDay(dayArr[(120 - translateY[2]) / 40]);
         console.log("ㅇㅅㅇ");
-    }, [isDragging]);
+    }, [isDragging, todayButton]);
 
-    // console.log(translateY);
+    const todayButton = () => {
+        setDatepickerYear(Number(year));
+        setDatepickerMonth(Number(month));
+        setDatepickerDay(Number(day));
+    };
+
     return (
         <div className="add-item">
             <form className="form-container" onSubmit={handleSubmit}>
@@ -265,7 +272,7 @@ const AddItem = () => {
                             <span>일</span>
                         </div>
                     </div>
-                    <div className="view-calendar">
+                    <div className="view-calendar" onClick={todayButton}>
                         <img src={calendarImage} alt="calendar image" />
                     </div>
                 </div>
