@@ -76,15 +76,33 @@ const AddItem = () => {
 
     const yearArr = Array.from({ length: 10 }, (_, index) => year - 1 + index);
     const monthArr = Array.from({ length: 12 }, (_, index) => index + 1);
-    const dayArr = useMemo(() => {
-        const lastDay = new Date(datepickerYear, datepickerMonth, 0).getDate();
-        return Array.from({ length: lastDay }, (_, index) => index + 1);
+    const [dayArr, setDayArr] = useState(
+        Array.from({ length: 28 }, (_, index) => index + 1)
+    );
+
+    const updateDayGap = () => {
+        const fullDate = new Date(datepickerYear, datepickerMonth, 0).getDate();
+        const days = Array.from({ length: fullDate }, (_, index) => index + 1);
+        if (fullDate < dayArr.length) {
+            setTranslateY((prev) => {
+                const updatedArr = [...prev];
+                updatedArr[2] = 120 - 40 * (days.length - 1);
+                return updatedArr;
+            });
+            setDatepickerDay(days.length);
+        }
+
+        setDayArr(days);
+    };
+
+    useEffect(() => {
+        // console.log(dayArr, );
+        updateDayGap();
     }, [datepickerYear, datepickerMonth]);
 
     // date picker - 슬라이드 선택 모달 //
 
     const [datepickerToggle, setDatepickerToggle] = useState(false);
-    console.log(datepickerToggle);
 
     const datepickerToggleSwitch = () => {
         setDatepickerToggle((prev) => !prev);
@@ -121,6 +139,13 @@ const AddItem = () => {
 
     const handleDragEnd = useCallback(
         (e, index) => {
+            console.log();
+            setStartY((prev) => prev.map((v, i) => (i === index ? 0 : v)));
+
+            setIsDragging((prev) =>
+                prev.map((v, i) => (i === index ? false : v))
+            );
+
             const lastArrLength = (index) => {
                 if (index === 0) return 120 - 40 * (yearArr.length - 1);
                 if (index === 1) return 120 - 40 * (monthArr.length - 1);
@@ -128,10 +153,12 @@ const AddItem = () => {
             };
 
             if (translateY[index] <= lastArrLength(index)) {
+                // 마지막 배열보다 아래로 슬라이드 시
                 setTranslateY((prev) =>
                     prev.map((v, i) => (i === index ? lastArrLength(index) : v))
                 );
             } else if (translateY[index] <= 120) {
+                // 첫 배열보다 위로 슬라이드 시
                 setTranslateY((prev) =>
                     prev.map((v, i) =>
                         i === index ? Math.round(v / 40) * 40 : v
@@ -142,12 +169,6 @@ const AddItem = () => {
                     prev.map((v, i) => (i === index ? 120 : v))
                 );
             }
-
-            setStartY((prev) => prev.map((v, i) => (i === index ? 0 : v)));
-
-            setIsDragging((prev) =>
-                prev.map((v, i) => (i === index ? false : v))
-            );
         },
         [translateY]
     );
@@ -174,6 +195,7 @@ const AddItem = () => {
     useEffect(() => {
         if (datepickerToggle === false && isDragging.every((v) => v === false))
             return;
+        // console.log(new Date(datepickerYear, datepickerMonth, 0).getDate());
 
         setDatepickerYear(yearArr[(120 - translateY[0]) / 40]);
         setDatepickerMonth(monthArr[(120 - translateY[1]) / 40]);
@@ -181,7 +203,7 @@ const AddItem = () => {
         console.log("ㅇㅅㅇ");
     }, [isDragging]);
 
-    console.log(translateY);
+    // console.log(translateY);
     return (
         <div className="add-item">
             <form className="form-container" onSubmit={handleSubmit}>
@@ -357,7 +379,6 @@ const AddItem = () => {
                                     {item}
                                 </div>
                             ))}
-                            <div className="slider-list">{datepickerDay}</div>
                         </div>
                         <div className="unit">일</div>
                     </div>
