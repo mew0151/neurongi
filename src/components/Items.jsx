@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { adjustQty } from "../redux/itemSlice";
 
-import iconAdd from "../assets/images/icon/16/add.png";
-import iconSubtract from "../assets/images/icon/16/subtract.png";
-import iconTrash from "../assets/images/icon/16/trash.png";
+import qtyIcon from "../assets/images/icon/16/qty-icon.svg";
+import poketIcon from "../assets/images/icon/16/poket-icon.svg";
 
 const Item = () => {
     const dispatch = useDispatch();
     const items = useSelector((state) => state.items.items);
 
     // console.log(new Date("2024-11-05").getTime());
+    console.log(items);
 
     const dueDateCalulate = (date) => {
         const today = new Date();
@@ -41,24 +41,37 @@ const Item = () => {
     };
 
     return (
-        <div className="item">
+        <div className="item-list">
             {items.map((item) => (
-                <div key={item.id}>
-                    <div className="item-detail">
-                        <div className="emogi">{item.emogi}</div>
-                        <div className="information">
+                <div key={item.id} className="item">
+                    <div className="main-slot">
+                        <div className="top">
+                            <div className="emogi">{item.emogi}</div>
+                            <div className="name">{item.name}</div>
+                        </div>
+                        <div className="bottom">{dueDateTxt(item.date)}</div>
+                    </div>
+                    <div className="detail-slot">
+                        <div className="top">
+                            <img src={qtyIcon} alt="qty icon" />
+                            {item.qty}
+                            <span className="poket-padding">
+                                <img src={poketIcon} />
+                                {item.poket}
+                            </span>
+                        </div>
+                        <div className="bottom"></div>
+                    </div>
+
+                    {/* <div className="item-detail">
                             <div className="status">
                                 <div
                                     className={`dot ${dotStateClass(
                                         item.date
                                     )}`}
                                 >
-                                    <div></div>
                                 </div>
-                                {dueDateTxt(item.date)}
                             </div>
-                            <div className="name">{item.name}</div>
-                        </div>
                         <div className="qty">
                             <img
                                 src={item.qty === 1 ? iconTrash : iconSubtract}
@@ -70,7 +83,6 @@ const Item = () => {
                                     );
                                 }}
                             />
-                            {item.qty}
                             <img
                                 src={iconAdd}
                                 alt="add icon"
@@ -83,8 +95,7 @@ const Item = () => {
                                 }}
                             />
                         </div>
-                    </div>
-                    <div className="divider"></div>
+                    </div> */}
                 </div>
             ))}
         </div>

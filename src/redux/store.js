@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import itemReducer from "./itemSlice";
+import poketReducer from "./poketSlice";
 
 const persistConfig = {
     key: "root",
@@ -9,7 +10,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    items: itemReducer
+    items: itemReducer,
+    pokets: poketReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

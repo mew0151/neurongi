@@ -8,7 +8,7 @@ const initialState = {
             qty: 10,
             emogi: "🥭",
             date: 1730764800000,
-            folder: "all"
+            poket: "all"
         },
         {
             id: 2,
@@ -16,7 +16,7 @@ const initialState = {
             qty: 1,
             emogi: "🍝",
             date: 1731024000000,
-            folder: "all"
+            poket: "all"
         },
         {
             id: 3,
@@ -24,7 +24,7 @@ const initialState = {
             qty: 1,
             emogi: "🍈",
             date: 1732924800000,
-            folder: "all"
+            poket: "all"
         }
     ]
 };

@@ -1,92 +1,62 @@
-@use "../mixins";
+@use "../mixins" as *;
 @use "../variables" as *;
 
-.item {
-    .item-detail {
-        padding: 8px;
+.item-list {
+    padding: 0 20px;
+    .item {
         display: flex;
-        align-items: center;
+        justify-content: space-between;
 
-        .emogi {
-            padding: 8px;
-            @include mixins.emogi-24;
-            margin-right: 8px;
-        }
+        padding: 16px;
+        margin-bottom: 10px;
+        border: 1px solid $gray-300;
+        border-radius: 8px;
 
-        .information {
-            .status {
-                margin-bottom: 4px;
+        background-color: $gray-100;
+
+        .main-slot {
+            .top {
                 display: flex;
                 align-items: center;
-
-                @include mixins.regular-14;
-                color: $gray-700;
-                .dot {
-                    width: 6px;
-                    height: 6px;
-                    border-radius: 50%;
+                margin-bottom: 6px;
+                .emogi {
+                    @include emogi-21;
                     margin-right: 4px;
-
-                    display: flex;
-                    align-items: center;
-
-                    justify-content: center;
-
-                    &.safe {
-                        background-color: $status-green-light;
-                        div {
-                            background-color: $status-green-default;
-                        }
-                    }
-                    &.warning {
-                        background-color: $status-yellow-light;
-                        div {
-                            background-color: $status-yellow-default;
-                        }
-                    }
-                    &.danger {
-                        background-color: $status-red-light;
-                        div {
-                            background-color: $status-red-default;
-                        }
-                    }
-                    &.expire {
-                        background-color: $gray-300;
-                        div {
-                            background-color: $gray-700;
-                        }
-                    }
-                    div {
-                        width: 56%;
-                        height: 56%;
-                        border-radius: 50%;
-                    }
+                }
+                .name {
+                    @include semibold-20;
+                    color: $gray-900;
                 }
             }
 
-            .name {
-                @include mixins.regular-18;
+            .bottom {
+                @include regular-16;
+                color: $status-safe;
+                display: inline;
+                padding: 0 4px;
+                border-radius: 8px;
+                background-color: $status-safe-light;
             }
         }
+        .detail-slot {
+            .top {
+                display: flex;
+                align-items: center;
+                color: $gray-700;
+                @include medium-16;
+                .poket-padding {
+                    display: flex;
+                    align-items: center;
+                    padding: 2px 10px 2px 6px;
+                    margin-left: 8px;
 
-        .qty {
-            width: 110px;
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            border: 1px solid $gray-300;
-            border-radius: 8px;
-            @include mixins.regular-16;
-            img {
-                padding: 12px;
+                    background-color: $gray-300;
+                    border-radius: 18px;
+                    img {
+                        margin-right: 2px;
+                    }
+                }
             }
         }
-    }
-    .divider {
-        height: 1px;
-        margin: 6px;
-        background-color: $gray-200;
     }
 }

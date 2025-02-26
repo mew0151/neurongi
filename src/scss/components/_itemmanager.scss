@@ -1,0 +1,29 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.item-manager {
+    .item-manager-content {
+        position: fixed;
+        width: 100%;
+        padding: 0 20px 16px 20px;
+        background-color: $gray-100;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .item-poket {
+            @include semibold-20;
+            // font-size:
+        }
+
+        // .item-button {
+        //     cursor: pointer;
+        // }
+    }
+    .item-manager-height {
+        height: 36px;
+        margin-bottom: 16px;
+        // background-color: $gray-100;
+    }
+}

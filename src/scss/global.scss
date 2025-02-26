@@ -1,0 +1,54 @@
+@use "reset";
+
+// 공통 변수
+@use "variables" as *;
+@use "mixins" as *;
+@use "./layout/grid";
+
+// 컴포넌트
+@use "./components/button";
+@use "./components/items";
+@use "./components/input";
+@use "./components/header";
+@use "./components/itemmanager";
+
+// 페이지
+@use "./pages/additem";
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    color: $gray-900;
+    background-color: $gray-100;
+    font-family: "Pretendard Variable", Pretendard, -apple-system,
+        BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+        "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif !important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input::-webkit-input-placeholder {
+    font-family: "Pretendard Variable", Pretendard, sans-serif;
+}
+
+input:-moz-placeholder {
+    font-family: "Pretendard Variable", Pretendard, sans-serif;
+}
+
+input::-moz-placeholder {
+    font-family: "Pretendard Variable", Pretendard, sans-serif;
+}
+
+input:-ms-input-placeholder {
+    font-family: "Pretendard Variable", Pretendard, sans-serif;
+}

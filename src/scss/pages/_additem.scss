@@ -1,32 +1,228 @@
 @use "../variables" as *;
 @use "../mixins" as *;
 
-.add-item {
-    margin-top: 16px;
+select {
+    -webkit-appearance: none; /* 크롬 화살표 없애기 */
+    -moz-appearance: none; /* 파이어폭스 화살표 없애기 */
+    appearance: none; /* 화살표 없애기 */
+}
 
-    .submitBtn {
-        // width: 100%;
-        height: 500px;
-        margin-top: 16px;
-        border: 1px solid $gray-300;
-        border-radius: 4px;
-        img {
+.add-item {
+    position: relative;
+    touch-action: none;
+    .form-container {
+        padding: 0 20px;
+        height: 90vh;
+        .category {
+            @include regular-18;
+            margin-bottom: 16px;
+            color: $gray-600;
+        }
+        .emogi {
+            margin-bottom: 16px;
+        }
+        .name {
             width: 100%;
-            position: relative;
-            border-radius: 4px;
-        }
-        .submit {
-            width: 92%;
-            height: 500px;
-            background-color: rgba(104, 97, 97, 0);
+            margin-bottom: 48px;
+            display: block;
+            @include semibold-28;
+            color: $gray-900;
             border: none;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 20px;
-            font-weight: bold;
-            -webkit-text-stroke: 1px $status-red-default;
-            position: absolute;
-            left: 20px;
+            padding: 0;
+            &::placeholder {
+                color: $gray-500;
+            }
+            &:focus {
+                outline: none;
+            }
         }
+        .qty-control {
+            display: flex;
+            margin-bottom: 16px;
+            .qty {
+                width: 100%;
+                height: 46px;
+                @include regular-24;
+                color: $gray-900;
+                padding: 8px 12px 8px 36px;
+                border-radius: 8px;
+                border: 1px solid $gray-400;
+                background-color: $gray-100;
+                margin-right: 6px;
+            }
+            img {
+                display: flex;
+                border: 1px solid $gray-400;
+                background-color: $gray-200;
+                border-radius: 8px;
+                padding: 14px 20px;
+            }
+            .spacing {
+                padding-right: 6px;
+            }
+        }
+
+        .date-control {
+            display: flex;
+            margin-bottom: 40px;
+            .view-datepicker {
+                width: 100%;
+                margin-right: 6px;
+                padding: 8px 10px;
+                display: flex;
+                justify-content: space-evenly;
+
+                border: 1px solid $gray-400;
+                border-radius: 8px;
+
+                @include regular-24;
+                color: $gray-900;
+                span {
+                    margin-left: 2px;
+                    color: $gray-700;
+                }
+            }
+
+            .view-calendar {
+                min-width: 58px;
+                height: 46px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                // background-color: $gray-200;
+                border-radius: 8px;
+
+                img {
+                    width: 22px;
+                    height: 28px;
+                }
+            }
+        }
+        .poket {
+            width: 100%;
+            height: 46px;
+            border: 1px solid $gray-400;
+            border-radius: 8px;
+            padding: 8px 12px 8px 36px;
+            background-color: $gray-100;
+
+            @include regular-24;
+            color: $gray-900;
+        }
+
+        .submit-btn {
+            margin-top: 120px;
+            width: 100%;
+            height: 54px;
+        }
+    }
+
+    .datepicker-modal {
+        position: absolute;
+        top: -54px;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+
+        .detail {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60%;
+            padding: 24px;
+            border-radius: 32px 32px 0 0;
+            background-color: $gray-100;
+
+            .due-slider {
+                height: 80%;
+                margin-bottom: 16px;
+                display: flex;
+                overflow: hidden;
+                position: relative;
+
+                @include regular-24;
+                color: $gray-600;
+
+                .select-space-wrap {
+                    position: absolute;
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    height: 40px;
+                    padding-top: 120px;
+
+                    .select-space {
+                        width: 30%;
+                        height: 40px;
+                        margin-right: 26px;
+                        margin-left: 6px;
+
+                        background-color: $gray-300;
+                        border-radius: 8px;
+                    }
+                }
+
+                .slider-wrap {
+                    width: 100%;
+                    height: 100%;
+                    z-index: 999;
+                    transform: translate(0, 120px);
+                    transition: transform 0.3s ease-out;
+
+                    .slider-list {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 40px;
+                    }
+
+                    .selected {
+                        color: $gray-900;
+                    }
+                }
+
+                .year {
+                    height: 100%;
+                    // transform: translate(0, 120px);
+                }
+
+                .month {
+                    height: 100%;
+                    // margin-top: -400px;
+                }
+                .day {
+                    height: 100%;
+                }
+
+                .unit {
+                    padding-top: 140px;
+                    display: flex;
+                    align-items: center;
+                    height: 40px;
+
+                    color: $gray-900;
+                }
+            }
+
+            .datepicker-action-buttons {
+                @include regular-20;
+                .confirm {
+                    width: 100%;
+                    padding: 14px;
+                    text-align: center;
+                    border: 1px solid $gray-400;
+                    border-radius: 8px;
+                }
+            }
+        }
+    }
+    .datepicker-modal.show {
+        display: block;
+    }
+
+    .datepicker-modal.hide {
+        display: none;
     }
 }
