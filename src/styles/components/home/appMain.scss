@@ -4,16 +4,24 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #000;
 
-    background-image: url("/images/appmain-background.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    // 기본 배경
+    background: url("/images/appmain-background.png") center / cover no-repeat;
 
-    // // safe-area 대응
-    padding-top: constant(safe-area-inset-top, 0px);
+    // 여백 대비용
     padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: constant(safe-area-inset-bottom, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    // 여백 위까지 이미지 채우기용 ::before
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: env(safe-area-inset-top, 30px);
+        background: url("/images/appmain-background.png") top / cover no-repeat;
+        z-index: 1;
+        pointer-events: none;
+    }
 }
