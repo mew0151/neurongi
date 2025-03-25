@@ -27,6 +27,8 @@ export const viewport: Viewport = {
     viewportFit: "cover"
 };
 
+// safe area 관련 참고
+// https://developers-kr.googleblog.com/2017/04/chrome-58-beta-indexeddb-2021.html
 export default function RootLayout({
     children
 }: Readonly<{
@@ -35,7 +37,7 @@ export default function RootLayout({
     return (
         <html lang="ko">
             <head>
-                <meta name="apple-mobile-web-app-capable" content="yes" />
+                <meta name="mobile-web-app-capable" content="yes" />
                 <meta
                     name="apple-mobile-web-app-status-bar-style"
                     content="black-translucent"

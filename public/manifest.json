@@ -19,7 +19,7 @@
             "type": "image/png"
         }
     ],
-
+    "theme_color": "transparent",
     "background_color": "#FFFFFF",
     "start_url": "/",
     "display": "fullscreen",
