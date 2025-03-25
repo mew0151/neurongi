@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     description: "im neurongi virus"
 };
 
+// https://nextjs.org/docs/app/api-reference/functions/generate-viewport
 export const viewport: Viewport = {
     width: "device-width",
     initialScale: 1.0,
@@ -34,6 +35,11 @@ export default function RootLayout({
     return (
         <html lang="ko">
             <head>
+                <meta name="apple-mobile-web-app-capable" content="yes" />
+                <meta
+                    name="apple-mobile-web-app-status-bar-style"
+                    content="black-translucent"
+                />
                 <link rel="manifest" href="/manifest.json" />
             </head>
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
