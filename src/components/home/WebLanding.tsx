@@ -2,7 +2,7 @@
 
 import "@/styles/components/home/webLanding.scss";
 
-let deferredPrompt: any;
+// let deferredPrompt: any;
 
 export default function WebLanding() {
     // window.addEventListener("beforeinstallprompt", (e) => {

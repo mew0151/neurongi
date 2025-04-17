@@ -1,6 +1,6 @@
 import { timestampToYMD, YMDToTimestamp } from "@/utils/dateUtils";
 import { ChangeEvent, useState } from "react";
-import useQtyControl from "./useQtyControl";
+// import useQtyControl from "./useQtyControl";
 
 type ItemForm = {
     id: number;
@@ -12,7 +12,7 @@ type ItemForm = {
 };
 
 const useItemForm = (initialTimestamp?: number) => {
-    const { update } = useQtyControl();
+    // const { update } = useQtyControl();
 
     const timestamp = initialTimestamp ?? Date.now();
 

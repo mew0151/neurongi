@@ -51,7 +51,7 @@ const PickerColumn = ({
             setIsDragging(false);
             startYRef.current = null;
 
-            const index = getSelectedIndex(translateY, data.length);
+            const index = getSelectedIndex(translateY);
             const snappedValue = data[index];
             onSelect(snappedValue);
 

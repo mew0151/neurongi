@@ -8,10 +8,11 @@ export const getTranslateY = (data: number[], selected: number): number => {
     return CENTER_OFFSET - index * ITEM_HEIGHT;
 };
 
-export function getSelectedIndex(translateY: number, length: number): number {
+export function getSelectedIndex(translateY: number): number {
     const initIndex = INIT_POSITION / ITEM_HEIGHT;
     const roughIndex = translateY / ITEM_HEIGHT;
     const index = Math.round(roughIndex) - initIndex;
+
     return -1 * index;
 }
 

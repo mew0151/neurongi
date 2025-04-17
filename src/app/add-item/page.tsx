@@ -7,7 +7,7 @@ import DatePickerModal from "@/components/datepicker/DatePickerModal";
 import useQtyControl from "@/hooks/useQtyControl";
 import useItemForm from "@/hooks/useItemForm";
 import useItemList from "@/hooks/useItemList";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 
 // images
 import Image from "next/image";
@@ -26,7 +26,7 @@ export default function AddItem() {
     const router = useRouter();
     const { date, dateFormChange, handleFormChange, form } = useItemForm();
     const { year, month, day, setYear, setMonth, setDay } = date;
-    const { items, addItem } = useItemList();
+    const { addItem } = useItemList();
 
     const [isDatePicker, setIsDatePicker] = useState(false);
 

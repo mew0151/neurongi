@@ -2,12 +2,12 @@
 
 import "@/styles/components/datepicker.scss";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import PickerColumn from "./DatePickerColumn";
 
 import { getYearArr, getMonthArr, getDayArr } from "@/utils/dateUtils";
-import useItemForm from "@/hooks/useItemForm";
+// import useItemForm from "@/hooks/useItemForm";
 
 interface DatePickerModalProps {
     date: {
