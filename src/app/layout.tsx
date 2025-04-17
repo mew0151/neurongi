@@ -3,7 +3,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/main.scss";
-// import Head from "next/head";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -20,15 +19,15 @@ export const metadata: Metadata = {
     description: "im neurongi virus"
 };
 
-// https://nextjs.org/docs/app/api-reference/functions/generate-viewport
 export const viewport: Viewport = {
     width: "device-width",
     initialScale: 1.0,
-    viewportFit: "cover"
+    viewportFit: "cover",
+    maximumScale: 1.0,
+    minimumScale: 1.0,
+    userScalable: false
 };
 
-// safe area 관련 참고
-// https://developers-kr.googleblog.com/2017/04/chrome-58-beta-indexeddb-2021.html
 export default function RootLayout({
     children
 }: Readonly<{
@@ -43,6 +42,12 @@ export default function RootLayout({
                     content="black-translucent"
                 />
                 <link rel="manifest" href="/manifest.json" />
+                <link
+                    rel="stylesheet"
+                    as="style"
+                    // crossorigin
+                    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+                />
             </head>
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
                 {children}

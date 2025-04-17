@@ -1,0 +1,41 @@
+// size
+$font-size-base: 16px;
+$font-size-m: 18px;
+$font-size-l: 20px;
+$font-size-xl: 24px;
+$font-size-xxl: 28px;
+
+.size-base {
+    font-size: $font-size-base;
+}
+.size-m {
+    font-size: $font-size-m;
+}
+.size-l {
+    font-size: $font-size-l;
+}
+.size-xl {
+    font-size: $font-size-xl;
+}
+.size-xxl {
+    font-size: $font-size-xxl;
+}
+
+// weight
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+.weight-regular {
+    font-weight: $font-weight-regular;
+}
+.weight-medium {
+    font-weight: $font-weight-medium;
+}
+.weight-semibold {
+    font-weight: $font-weight-semibold;
+}
+.weight-bold {
+    font-weight: $font-weight-bold;
+}

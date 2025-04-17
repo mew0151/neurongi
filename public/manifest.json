@@ -5,8 +5,7 @@
         {
             "src": "/icons/icon-192x192.png",
             "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any maskable"
+            "type": "image/png"
         },
         {
             "src": "/icons/icon-384x384.png",
@@ -23,5 +22,21 @@
     "background_color": "#FFFFFF",
     "start_url": "/",
     "display": "fullscreen",
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "screenshots": [
+        {
+            "src": "/images/test.png",
+            "sizes": "649x424",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "virus"
+        },
+        {
+            "src": "/images/ttest.png",
+            "sizes": "649x424",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "virus two"
+        }
+    ]
 }

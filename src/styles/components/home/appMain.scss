@@ -1,18 +1,40 @@
-.app-main {
-    position: fixed;
-    top: 0px;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    // z-index: 999;
+@use "../../variables/colors" as *;
+@use "/src/styles/variables/safeArea.scss" as *;
+@use "/src/styles/variables/position.scss" as *;
 
+.app-main {
+    @include position-fixed;
+    @include safe-area-padding;
     background: url("/images/appmain-background.png") center / cover no-repeat;
-    // padding-top: constant(safe-area-inset-top, 0px);
-    // padding-top: env(safe-area-inset-top, 0px);
-    // padding-right: constant(safe-area-inset-right, 0px);
-    // padding-right: env(safe-area-inset-right, 0px);
-    // padding-left: constant(safe-area-inset-left, 0px);
-    // padding-left: env(safe-area-inset-left, 0px);
-    // padding-bottom: constant(safe-area-inset-bottom, 0px);
-    // padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.app-main-container {
+    height: 100%;
+    padding: 16px;
+}
+
+.folder-component {
+    @include flex-center;
+    flex-direction: column;
+    width: 50%;
+    height: 148px;
+    margin: 8px 0;
+
+    p {
+        margin-top: 4px;
+        color: $gray-100;
+        filter: drop-shadow(0 1px 3px #0000005c);
+    }
+}
+
+.folders {
+    height: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: start;
+}
+
+.folder-controls {
+    height: 25%;
+    display: flex;
 }

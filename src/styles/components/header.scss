@@ -1,0 +1,22 @@
+@use "../variables/colors" as *;
+
+.header {
+    position: relative;
+    height: 54px;
+    border-bottom: 1px solid $gray-300;
+    background-color: $gray-200;
+    padding: 0 16px;
+
+    img {
+        position: absolute;
+        top: 50%;
+        left: 16px;
+        transform: translateY(-50%);
+    }
+    p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

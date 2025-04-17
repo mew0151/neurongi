@@ -1,4 +1,4 @@
-.home {
+@mixin safe-area-padding {
     padding-top: constant(safe-area-inset-top, 0px);
     padding-top: env(safe-area-inset-top, 0px);
     padding-right: constant(safe-area-inset-right, 0px);
