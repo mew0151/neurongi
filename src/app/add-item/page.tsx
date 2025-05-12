@@ -4,10 +4,7 @@ import "@/styles/pages/add-item.scss";
 import Header from "@/components/layout/Header";
 import DatePickerModal from "@/components/datepicker/DatePickerModal";
 
-import useQtyControl from "@/hooks/useQtyControl";
-import useItemForm from "@/hooks/useItemForm";
-import useItemList from "@/hooks/useItemList";
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { useState } from "react";
 
 // images
 import Image from "next/image";
@@ -19,30 +16,43 @@ import CalendarIcon from "/public/images/icon/add-item-datepicker.svg";
 import FolderIcon from "/public/images/icon/add-item-selectfolder.svg";
 
 import { useRouter } from "next/navigation";
+import { useItemForm } from "@/hooks/useItemForm";
+import { useItemList } from "@/context/ItemListContext";
+import { v4 as uuidv4 } from "uuid";
+import { timestampToYMD } from "@/utils/dateUtils";
+import { useFolderList } from "@/hooks/folderList";
 
 export default function AddItem() {
-    const { qty, increase, decrease } = useQtyControl();
-
-    const router = useRouter();
-    const { date, dateFormChange, handleFormChange, form } = useItemForm();
-    const { year, month, day, setYear, setMonth, setDay } = date;
+    const { form, updateField } = useItemForm();
     const { addItem } = useItemList();
+    const router = useRouter();
 
     const [isDatePicker, setIsDatePicker] = useState(false);
+    const [folderId, setFolderId] = useState("");
+    const { folders } = useFolderList();
 
-    const emojiRef = useRef<HTMLInputElement>(null);
+    const handleSubmit = () => {
+        const newItem = {
+            id: uuidv4(),
+            name: form.name,
+            emoji: form.emoji,
+            dateTimeStamp: form.dateTimeStamp,
+            folder: folderId,
+            qty: form.qty
+        };
 
-    const handleEmojiChange = (e: ChangeEvent<HTMLInputElement>) => {
-        handleFormChange(e);
-
-        if (e.target.value.length > 1) {
-            console.log("hi");
-            emojiRef.current?.blur();
-        }
-    };
-    const test = () => {
-        addItem({ ...form, qty }); // 리스트에 추가 + localStorage 저장
+        addItem(newItem);
         router.push("/all-items");
+    };
+
+    const qtyHandle = (direc: "-" | "+") => {
+        if (direc === "-") {
+            if (form.qty > 1) {
+                updateField("qty", form.qty - 1);
+            }
+        } else {
+            updateField("qty", form.qty + 1);
+        }
     };
 
     return (
@@ -56,7 +66,9 @@ export default function AddItem() {
                             name="emoji"
                             value={form.emoji}
                             inputMode="text"
-                            onChange={handleEmojiChange}
+                            onChange={(e) =>
+                                updateField("emoji", e.target.value)
+                            }
                         />
                         <Image
                             src={EmptyEmoji}
@@ -72,7 +84,9 @@ export default function AddItem() {
                             name="emoji"
                             value={form.emoji}
                             inputMode="text"
-                            onChange={handleEmojiChange}
+                            onChange={(e) =>
+                                updateField("emoji", e.target.value)
+                            }
                         />
                     </div>
                 )}
@@ -83,7 +97,7 @@ export default function AddItem() {
                     className="item-name size-xxl weight-bold"
                     placeholder="New item"
                     value={form.name}
-                    onChange={handleFormChange}
+                    onChange={(e) => updateField("name", e.target.value)}
                 />
 
                 <div className="category weight-medium">부가 정보</div>
@@ -91,8 +105,10 @@ export default function AddItem() {
                     <input
                         type="number"
                         name="qty"
-                        value={qty}
-                        onChange={handleFormChange}
+                        value={form.qty}
+                        onChange={(e) =>
+                            updateField("qty", Number(e.target.value))
+                        }
                         pattern="[0-9]*"
                         inputMode="decimal"
                         className="qty size-xl"
@@ -106,7 +122,7 @@ export default function AddItem() {
                     <div className="qty-control-btn">
                         <Image
                             src={DecreaseIcon}
-                            onClick={decrease}
+                            onClick={() => qtyHandle("-")}
                             alt="decrease icon"
                             width={26}
                             height={26}
@@ -114,7 +130,7 @@ export default function AddItem() {
                         />
                         <Image
                             src={IncreaseIcon}
-                            onClick={increase}
+                            onClick={() => qtyHandle("+")}
                             alt="increase icon"
                             width={26}
                             height={26}
@@ -125,16 +141,10 @@ export default function AddItem() {
                 <div className="date-control">
                     {isDatePicker && (
                         <DatePickerModal
-                            date={{
-                                year,
-                                month,
-                                day,
-                                setYear,
-                                setMonth,
-                                setDay
-                            }}
-                            onClose={() => {
-                                dateFormChange(year, month, day);
+                            date={form.dateTimeStamp}
+                            onClose={(newTimestamp) => {
+                                console.log(newTimestamp);
+                                updateField("dateTimeStamp", newTimestamp);
                                 setIsDatePicker(false);
                             }}
                         />
@@ -145,15 +155,15 @@ export default function AddItem() {
                         onClick={() => setIsDatePicker(true)}
                     >
                         <div>
-                            {year}
+                            {timestampToYMD(form.dateTimeStamp).year}
                             <span>년</span>
                         </div>
                         <div>
-                            {month}
+                            {timestampToYMD(form.dateTimeStamp).month}
                             <span>월</span>
                         </div>
                         <div>
-                            {day}
+                            {timestampToYMD(form.dateTimeStamp).day}
                             <span>일</span>
                         </div>
                     </div>
@@ -174,12 +184,21 @@ export default function AddItem() {
                         width={54}
                         height={54}
                     />
-                    <select name="folder" className="folder size-xl">
-                        <option value="">default folder</option>
-                        <option value="">test</option>
+                    <select
+                        name="folder"
+                        className="folder size-xl"
+                        value={folderId}
+                        onChange={(e) => setFolderId(e.target.value)}
+                    >
+                        <option value="">폴더를 선택하시긔..</option>
+                        {folders.map((folder) => (
+                            <option key={folder.id} value={folder.id}>
+                                {folder.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
-                <button onClick={test}>츄가츄</button>
+                <button onClick={handleSubmit}>츄가츄</button>
             </div>
         </div>
     );

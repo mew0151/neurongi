@@ -80,7 +80,7 @@ const PickerColumn = ({
             window.removeEventListener("touchmove", dragHandlers.move);
             window.removeEventListener("touchend", dragHandlers.end);
         };
-    }, [isDragging, translateY]);
+    }, [isDragging, dragHandlers.move, dragHandlers.end]);
 
     return (
         <div

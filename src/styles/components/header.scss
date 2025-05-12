@@ -3,6 +3,7 @@
 .header {
     position: relative;
     height: 54px;
+    width: 100%;
     border-bottom: 1px solid $gray-300;
     background-color: $gray-200;
     padding: 0 16px;
@@ -18,5 +19,17 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+
+    .sub-btn {
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+
+        transform: translateY(-50%);
+        background-color: blue;
+        color: white;
     }
 }

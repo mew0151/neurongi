@@ -1,53 +1,58 @@
-import { timestampToYMD, YMDToTimestamp } from "@/utils/dateUtils";
-import { ChangeEvent, useState } from "react";
-// import useQtyControl from "./useQtyControl";
+import { useState } from "react";
 
-type ItemForm = {
-    id: number;
+interface ItemFormState {
     name: string;
     emoji: string;
-    qty: number;
-    dateTimeStamp: number;
     folder: string;
-};
+    dateTimeStamp: number;
+    qty: number;
+}
 
-const useItemForm = (initialTimestamp?: number) => {
-    // const { update } = useQtyControl();
+export function useItemForm() {
+    const date = new Date().getTime();
 
-    const timestamp = initialTimestamp ?? Date.now();
-
-    const initialYMD = timestampToYMD(timestamp);
-
-    const [year, setYear] = useState(() => initialYMD.year);
-    const [month, setMonth] = useState(() => initialYMD.month);
-    const [day, setDay] = useState(() => initialYMD.day);
-
-    const [form, setForm] = useState<Omit<ItemForm, "qty">>({
-        id: Date.now(),
-        name: "",
+    const [form, setForm] = useState<ItemFormState>({
         emoji: "",
-        dateTimeStamp: timestamp,
-        folder: "default poket"
+        name: "",
+        folder: "",
+        dateTimeStamp: date,
+        qty: 1
     });
 
-    const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-
-        setForm((prev) => ({ ...prev, [name]: value }));
-        console.log(form);
+    const updateField = <K extends keyof ItemFormState>(
+        field: K,
+        value: ItemFormState[K]
+    ) => {
+        setForm((prev) => ({
+            ...prev,
+            [field]: value
+        }));
     };
 
-    const dateFormChange = (y: number, m: number, d: number) => {
-        const getTimestamp = YMDToTimestamp(y, m, d);
-        setForm((prev) => ({ ...prev, dateTimeStamp: getTimestamp }));
+    const resetForm = () => {
+        setForm({
+            emoji: "",
+            name: "",
+            folder: "",
+            dateTimeStamp: date,
+            qty: 1
+        });
+    };
+
+    const editForm = (item: ItemFormState) => {
+        setForm({
+            emoji: item.emoji,
+            name: item.name,
+            folder: item.folder,
+            dateTimeStamp: item.dateTimeStamp,
+            qty: item.qty
+        });
     };
 
     return {
         form,
-        handleFormChange,
-        dateFormChange,
-        date: { year, month, day, setYear, setMonth, setDay }
+        updateField,
+        resetForm,
+        editForm
     };
-};
-
-export default useItemForm;
+}

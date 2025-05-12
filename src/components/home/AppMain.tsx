@@ -1,14 +1,15 @@
-// "use client";
+"use client";
 
 import "@/styles/components/home/appMain.scss";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useFolderList } from "@/hooks/folderList";
 
 export default function AppMain() {
     const router = useRouter();
+    const { folders } = useFolderList();
 
     const handleSelectFolder = (folder: string) => {
-        console.log(folder);
         router.push(`/${folder}`, { scroll: false });
     };
 
@@ -29,10 +30,31 @@ export default function AppMain() {
                         />
                         <p className="weight-semibold">folder-123</p>
                     </div>
+                    {folders.map((folder) => (
+                        <div
+                            key={folder.id}
+                            className="folder-component"
+                            onClick={() => handleSelectFolder(`${folder.id}`)}
+                        >
+                            <Image
+                                src="/images/folder.png"
+                                alt="folder img"
+                                width={88}
+                                height={72}
+                                priority={true}
+                            />
+                            <p className="weight-semibold">{folder.name}</p>
+                        </div>
+                    ))}
                 </div>
 
                 <div className="folder-controls">
-                    <div className="folder-component">
+                    <div
+                        className="folder-component"
+                        onClick={() => {
+                            router.push("/add-folder");
+                        }}
+                    >
                         <Image
                             src="/images/foldercat.png"
                             alt="folder cat img"

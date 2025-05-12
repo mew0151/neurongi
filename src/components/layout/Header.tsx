@@ -9,6 +9,10 @@ type HeaderProps = {
 
 const Header = ({ pageName }: HeaderProps) => {
     const router = useRouter();
+
+    const handleSelectFolder = (folder: string) => {
+        router.push(`/${folder}`, { scroll: false });
+    };
     return (
         <div className="header">
             <Image
@@ -19,6 +23,13 @@ const Header = ({ pageName }: HeaderProps) => {
                 onClick={() => router.back()}
             />
             <p className="weight-semibold size-m">{pageName}</p>
+
+            <div
+                className="sub-btn"
+                onClick={() => handleSelectFolder("add-item")}
+            >
+                add-item
+            </div>
         </div>
     );
 };

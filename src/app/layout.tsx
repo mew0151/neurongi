@@ -28,6 +28,9 @@ export const viewport: Viewport = {
     userScalable: false
 };
 
+import { ItemProvider } from "@/context/ItemListContext";
+import { FolderListProvider } from "@/context/FolderListContext";
+
 export default function RootLayout({
     children
 }: Readonly<{
@@ -50,7 +53,9 @@ export default function RootLayout({
                 />
             </head>
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
-                {children}
+                <FolderListProvider>
+                    <ItemProvider>{children}</ItemProvider>
+                </FolderListProvider>
             </body>
         </html>
     );

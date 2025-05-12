@@ -1,8 +1,9 @@
 "use client";
+import { itemStorage } from "@/utils/itemStorage";
 import { useEffect, useState } from "react";
 
-type ItemForm = {
-    id: number;
+type ItemType = {
+    id: string;
     name: string;
     emoji: string;
     qty: number;
@@ -10,25 +11,38 @@ type ItemForm = {
     folder: string;
 };
 
-const useItemList = () => {
-    const [items, setItems] = useState<ItemForm[]>([]);
+export function useItemList() {
+    const [itemList, setItemList] = useState<ItemType[]>([]);
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            const saved = localStorage.getItem("itemList");
-            if (saved) {
-                setItems(JSON.parse(saved));
-            }
-        }
+        const storedItems = itemStorage.get();
+        setItemList(storedItems);
     }, []);
 
-    const addItem = (item: ItemForm) => {
-        const newList = [...items, item];
-        setItems(newList);
-        localStorage.setItem("itemList", JSON.stringify(newList));
+    const addItem = (newItem: ItemType) => {
+        const updatedList = [...itemList, newItem];
+        itemStorage.set(updatedList);
+        setItemList(updatedList);
     };
 
-    return { items, addItem };
-};
+    const deleteItem = (id: string) => {
+        const updatedList = itemList.filter((item) => item.id !== id);
+        itemStorage.set(updatedList);
+        setItemList(updatedList);
+    };
 
-export default useItemList;
+    const updateItem = (updatedItem: ItemType) => {
+        const updatedList = itemList.map((item) =>
+            item.id === updatedItem.id ? updatedItem : item
+        );
+        itemStorage.set(updatedList);
+        setItemList(updatedList);
+    };
+
+    return {
+        itemList,
+        addItem,
+        deleteItem,
+        updateItem
+    };
+}
