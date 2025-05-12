@@ -3,13 +3,13 @@
 import Header from "@/components/layout/Header";
 import { useFolderList } from "@/hooks/folderList";
 import { useState } from "react";
-
+import "@/styles/pages/add-folder.scss";
 const FolderManager = () => {
     const { folders, addFolder, updateFolder, deleteFolder } = useFolderList();
     const [input, setInput] = useState("");
 
     return (
-        <div>
+        <div className="add-folder">
             <Header pageName="add folder" />
 
             <input
