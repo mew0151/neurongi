@@ -1,6 +1,7 @@
 // "use client";
 
 import "@/styles/components/home/webLanding.scss";
+import AppMain from "./AppMain";
 
 // let deferredPrompt: any;
 
@@ -19,8 +20,7 @@ export default function WebLanding() {
     // };
     return (
         <div className="web-landing">
-            웹랜딩데쓰네
-            {/* <button onClick={() => handleInstall()}>따운로드</button> */}
+            <AppMain />
         </div>
     );
 }
